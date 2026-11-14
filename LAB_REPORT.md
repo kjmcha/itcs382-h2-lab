@@ -34,17 +34,22 @@ The parcels from the first run were kept in the program's memory (RAM) inside a 
   ParcelRepository repository = new InMemoryParcelRepository();
 ```
 
-0.6 Commit of the switch to H2:
+0.6 Commit of the switch to H2: 004858b
 
 0.7 Output of `SELECT * FROM PARCEL;` after you stored two parcels:
 
 ```text
-
+CODE  | STUDENT_ID | PARCEL_SIZE | STATUS | LOCKER_NUMBER
+P1001 | S1001      | SMALL       | STORED | 1
+P1002 | S1002      | LARGE       | STORED | 3
+(2 rows, 19 ms)
 ```
 
 0.8 Explain why ParcelPoint could not start while the H2 Shell was open, and identify the class that wrote the message `Cannot create the PARCEL table`.
+ParcelPoint could not start because H2 is an embedded database that locks the database file (parcelpoint.mv.db) for exclusive use by one process at a time, and the H2 Shell still held it open. The class H2ParcelRepository wrote the first line of the error message (Cannot create the PARCEL table).
 
 0.9 Explain why `staff` shows no parcel while `find` shows each one, and why all three lockers look free.
+The staff command shows no parcels because findAll() in H2ParcelRepository has not been implemented yet and currently returns an empty list, whereas find calls findByCode() which already reads from the database. All three lockers look free because ParcelService's constructor relies on findAll() to reload waiting parcels back into their lockers when the program starts.
 
 0.11 Your findAll method:
 
