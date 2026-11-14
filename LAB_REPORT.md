@@ -1,34 +1,37 @@
 # Lab Report, Designing the Data Management Layer with H2
 
-Repository URL:
+Repository URL: https://github.com/kjmcha/itcs382-h2-lab
 
 ## Tools
 
 | Item | Version or name |
 | --- | --- |
-| JDK | |
-| Maven | |
-| IDE | |
-| AI tool and exact model, if you used one | |
+| JDK | OpenJDK 25.0.5 (Temurin)|
+| Maven | Apache Maven 3.10.0 |
+| IDE | Visual Studio Code `<ใส่เลขเวอร์ชันของ VS Code>` |
+| AI tool and exact model, if you used one | Google Gemini | 
 
 ## Part 0. From a store in memory to H2
 
-Commit of the starter, before any change:
+Commit of the starter, before any change: 5c4ab43 
 
 0.3 Your prediction for `staff`, written before the second run:
 
 Output of the second run, for `staff` and `quit`:
 
 ```text
-
+> staff
+  Free lockers: 3
+  > quit
 ```
 
 State in one sentence where you think the parcels of the first run were kept.
+The parcels from the first run were kept in the program's memory (RAM) inside a LinkedHashMap, which was freed when the program ended.
 
 0.5 The line of Main that you would change to keep the parcels somewhere else:
 
 ```java
-
+  ParcelRepository repository = new InMemoryParcelRepository();
 ```
 
 0.6 Commit of the switch to H2:
